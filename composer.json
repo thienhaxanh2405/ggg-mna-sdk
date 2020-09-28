@@ -1,0 +1,19 @@
+{
+    "name": "thienhaxanh2405/ggg-mna-sdk",
+    "description": "The package for Message and Authentication system",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Nguyen Duc Toan",
+            "email": "nguyenductoan2405@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {"GGGMnASDK\\": "src/"}
+    }
+}
