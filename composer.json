@@ -3,6 +3,7 @@
     "description": "The package for Message and Authentication system",
     "type": "library",
     "require": {
+        "ext-json": "*",
         "guzzlehttp/guzzle": "^6.2"
     },
     "license": "MIT",

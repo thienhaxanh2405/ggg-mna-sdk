@@ -11,32 +11,29 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 
-class StringeeX extends ASender implements ISender {
+class VnpaySms extends ASender implements ISender {
 
-    public function send(IMessage $message)
+    public function send(IMessage $message = null)
     {
         $res = new Result();
 
         try {
             $doSend = $this->httpClient->request(
                 'post',
-                $this->authentication->getApiBaseUrl().'call/stringee/make-a-call',
+                $this->authentication->getApiBaseUrl().'sms/vnpay/send',
                 [
                     RequestOptions::HEADERS => [
                         'Authorization' => 'Bearer '.$this->authentication->getToken()
                     ],
                     RequestOptions::JSON => [
-                        'number' => $message->getReceiver(),
-                        'type' => $message->getType(),
-                        'action' => $message->getAction(),
-                        'content' => $message->getContent(),
-                        'messageId' => $message->getMessageId()
+                        'cellphone' => $message->getReceiver(),
+                        'message' => $message->getMessage(),
+                        'brandName' => $message->getBrandName(),
                     ]
                 ]
             );
 
             $strResponse = $doSend->getBody()->getContents();
-
             $jsonResponse = \json_decode($strResponse);
             if ($jsonResponse) {
                 if ($jsonResponse->messageCode == 1) {

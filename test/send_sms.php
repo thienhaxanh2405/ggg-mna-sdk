@@ -2,7 +2,17 @@
 
 require_once '../vendor/autoload.php';
 
-$client = new \GGGMnASDK\Service\SMS(
+// message
+$message = new \GGGMnASDK\Abstraction\Object\SMS(
+    [
+        'receiver' => '0987802175',
+        'brandName' => 'GoldenGate',
+        'message' => 'Dev: Mã OTP của bạn là 0913'
+    ]
+);
+
+// sender vnpay
+$sender = new \GGGMnASDK\Service\VnpaySms(
     new \GuzzleHttp\Client(),
     new \GGGMnASDK\Abstraction\Object\Authentication(
         [
@@ -12,14 +22,19 @@ $client = new \GGGMnASDK\Service\SMS(
     )
 );
 
-var_dump(
-    $client->send(
-        new \GGGMnASDK\Abstraction\Object\SMS(
-            [
-                'receiver' => '0987802175',
-                'brandName' => 'GoldenGate',
-                'message' => 'Dev: Mã OTP của bạn là 0913'
-            ]
-        )
+// sender VMG
+/*$sender = new \GGGMnASDK\Service\SMS(
+    new \GuzzleHttp\Client(),
+    new \GGGMnASDK\Abstraction\Object\Authentication(
+        [
+            'apiBaseUrl' => 'http://10.28.1.140/api/v1/',
+            'token' => 'this is token'
+        ]
     )
-);
+);*/
+
+// init client
+$client = new \GGGMnASDK\Service\Client($sender, $message);
+
+// send message
+var_dump($client->sendMessage());

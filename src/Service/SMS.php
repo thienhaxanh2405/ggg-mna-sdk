@@ -1,6 +1,7 @@
 <?php
 namespace GGGMnASDK\Service;
 
+use GGGMnASDK\Abstraction\Contract\ASender;
 use GGGMnASDK\Abstraction\Contract\IMessage;
 use GGGMnASDK\Abstraction\Contract\ISender;
 use GGGMnASDK\Abstraction\Object\Authentication;
@@ -10,18 +11,14 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 
-class SMS implements ISender {
-
-    private $client;
-
-    private $authentication;
+class SMS extends ASender implements ISender {
 
     public function send(IMessage $message)
     {
         $res = new Result();
 
         try {
-            $doSend = $this->client->request(
+            $doSend = $this->httpClient->request(
                 'post',
                 $this->authentication->getApiBaseUrl().'sms/vmg/send',
                 [
@@ -65,8 +62,7 @@ class SMS implements ISender {
 
     public function __construct(ClientInterface $client, Authentication $authentication)
     {
-        $this->client = $client;
-        $this->authentication = $authentication;
+        parent::__construct($client, $authentication);
     }
 
 }
