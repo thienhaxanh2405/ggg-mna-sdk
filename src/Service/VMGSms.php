@@ -11,7 +11,7 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 
-class SMS extends ASender implements ISender {
+class VMGSms extends ASender implements ISender {
 
     public function send(IMessage $message)
     {

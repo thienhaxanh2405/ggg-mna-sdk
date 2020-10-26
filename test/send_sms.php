@@ -17,13 +17,13 @@ $sender = new \GGGMnASDK\Service\VnpaySms(
     new \GGGMnASDK\Abstraction\Object\Authentication(
         [
             'apiBaseUrl' => 'http://10.28.1.140/api/v1/',
-            'token' => 'this is token'
+            'token' => 'this token'
         ]
     )
 );
 
 // sender VMG
-/*$sender = new \GGGMnASDK\Service\SMS(
+/*$sender = new \GGGMnASDK\Service\VMGSms(
     new \GuzzleHttp\Client(),
     new \GGGMnASDK\Abstraction\Object\Authentication(
         [

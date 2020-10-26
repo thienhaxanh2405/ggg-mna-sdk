@@ -8,6 +8,7 @@ use GGGMnASDK\Abstraction\Object\Authentication;
 use GGGMnASDK\Abstraction\Object\MessageSystem;
 use GGGMnASDK\Abstraction\Object\Result;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 
@@ -49,11 +50,11 @@ class VnpaySms extends ASender implements ISender {
                 $res->message = 'Fail to parse json';
             }
         } catch (GuzzleException $e) {
-            $res->messageCode = MessageSystem::GENERAL_ERROR;
+            $res->messageCode = $e->getCode();
             $res->message = $e->getMessage();
         } catch (\Exception $e) {
             $res->messageCode = MessageSystem::GENERAL_ERROR;
-            $res->message = $e->getMessage();
+            $res->message = 'Exception: '.$e->getMessage();
         }
 
         return $res;

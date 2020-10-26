@@ -52,11 +52,11 @@ class StringeeX extends ASender implements ISender {
                 $res->message = 'Fail to parse json';
             }
         } catch (GuzzleException $e) {
-            $res->messageCode = MessageSystem::GENERAL_ERROR;
+            $res->messageCode = $e->getCode();
             $res->message = $e->getMessage();
         } catch (\Exception $e) {
             $res->messageCode = MessageSystem::GENERAL_ERROR;
-            $res->message = $e->getMessage();
+            $res->message = 'Exception: '.$e->getMessage();
         }
 
         return $res;
