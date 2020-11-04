@@ -96,12 +96,8 @@ class Helper
         } else {
             return false;
         }
-        
-        if(strlen($phoneNumber) == 10) {
-            return $phoneNumber;
-        } else {
-            return false;
-        }
+
+        return $phoneNumber;
     }
 
 } // end class
