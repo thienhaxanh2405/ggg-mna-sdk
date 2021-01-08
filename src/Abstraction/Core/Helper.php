@@ -81,23 +81,37 @@ class Helper
      */
     public static function correctCellphoneNumber($phoneNumber)
     {
-        if (substr($phoneNumber, 0, 3) === '840') {
-            $phoneNumber = '0'.substr($phoneNumber, 3);
-        }  elseif (substr($phoneNumber, 0, 4) === '+840') {
-            $phoneNumber = '0'.substr($phoneNumber, 4);
-        } elseif (substr($phoneNumber, 0, 3) === '+84') {
-            $phoneNumber = '0'.substr($phoneNumber, 3);
-        } elseif (substr($phoneNumber, 0, 2) === '84') {
-            $phoneNumber = '0'.substr($phoneNumber, 2);
-        } elseif (substr($phoneNumber, 0, 1) !== '0') {
-            $phoneNumber = '0'.$phoneNumber;
-        } elseif (substr($phoneNumber, 0, 1) === '0') {
+        // remove spaces
+        $phoneNumber = str_replace(' ', '', $phoneNumber);
+        // remove +
+        $phoneNumber = str_replace('+', '', $phoneNumber);
 
+        if (strlen($phoneNumber) >= 9 && is_numeric($phoneNumber)) {
+            if (substr($phoneNumber, 0, 2) === '84' && strlen($phoneNumber) == 9) {
+                // 84 is cellphone carrier
+                $phoneNumber = '0'.$phoneNumber;
+            } elseif (substr($phoneNumber, 0, 2) === '084' && strlen($phoneNumber) == 10) {
+                // 84 is cellphone carrier
+
+            } elseif (substr($phoneNumber, 0, 3) === '840') {
+                // 84 là is vietnamese nation code
+                $phoneNumber = '0'.substr($phoneNumber, 3);
+            } elseif (substr($phoneNumber, 0, 2) === '84') {
+                // 84 là is vietnamese nation code
+                $phoneNumber = '0'.substr($phoneNumber, 2);
+            } elseif (substr($phoneNumber, 0, 1) !== '0') {
+                $phoneNumber = '0'.$phoneNumber;
+            } elseif (substr($phoneNumber, 0, 1) === '0') {
+
+            } else {
+                return false;
+            }
+
+
+            return $phoneNumber;
         } else {
             return false;
         }
-
-        return $phoneNumber;
     }
 
 } // end class
